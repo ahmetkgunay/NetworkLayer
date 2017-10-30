@@ -97,7 +97,6 @@ override func viewDidLoad() {
 
 ```
 
-```
 ## Installation
 
 - By cloning the project into your repository
