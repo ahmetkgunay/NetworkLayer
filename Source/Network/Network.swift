@@ -56,9 +56,9 @@ class Network {
     static func request<T: Requestable>(req: T, completionHandler: @escaping (NetworkResult<T.ResponseType>) -> Void) -> DataRequest? {
         
         let url = req.baseUrl.appendingPathComponent(req.endpoint)
-        let mutableRequest = prepareRequest(for: url, req: req)
+        let request = prepareRequest(for: url, req: req)
         
-        return Alamofire.request(mutableRequest).responseJSON { (response) in
+        return Alamofire.request(request).responseJSON { (response) in
             
             if let err = response.error {
                 
