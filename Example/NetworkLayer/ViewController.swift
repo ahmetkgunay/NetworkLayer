@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Assign request instance to cancel in future
+        // Just call cancel() to assigned instance
         _ = Network.request(req: UserRequest(userName: "ahmetkgunay")) { (result) in
             
             switch result {
@@ -20,7 +22,6 @@ class ViewController: UIViewController {
                 print(userResponse)
             case .cancel(let cancelError):
                 print(cancelError!)
-                break
             case .failure(let error):
                 print(error!)
             }
