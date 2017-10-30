@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class UserRequest: Requestable {    
+final class UserRequest: Requestable {
     
     typealias ResponseType = UserResponse
     
@@ -16,6 +16,10 @@ final class UserRequest: Requestable {
     
     init(userName:String) {
         self.userName = userName
+    }
+    
+    var baseUrl: URL {
+        return  URL(string: "https://api.github.com/")!
     }
     
     var endpoint: String {

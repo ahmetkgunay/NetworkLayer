@@ -22,6 +22,10 @@ final class UserRequest: Requestable {
     init(userName:String) {
         self.userName = userName
     }
+    
+    var baseUrl: URL {
+        return  URL(string: "https://api.github.com/")!
+    }
 
     var endpoint: String {
         return "users/\(self.userName)"

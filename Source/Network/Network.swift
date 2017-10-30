@@ -18,6 +18,7 @@ protocol Requestable {
     var query:  Network.QueryType { get }
     var parameters: [String: Any]? { get }
     var headers: [String: String]? { get }
+    var baseUrl: URL { get }
     
     // We did not have to add these variables (timeout and cachePolicy) to protocol but i like to have control while coding to make codebase scalable
     var timeout : TimeInterval { get }
@@ -38,8 +39,6 @@ enum NetworkResult<T> {
     case failure(Error?)
 }
 
-let BaseURL = URL(string: "https://api.github.com/")
-
 class Network {
     
     public enum Method: String {
@@ -56,8 +55,7 @@ class Network {
     @discardableResult
     static func request<T: Requestable>(req: T, completionHandler: @escaping (NetworkResult<T.ResponseType>) -> Void) -> DataRequest? {
         
-        guard let baseUrl = BaseURL else { return nil }
-        let url = baseUrl.appendingPathComponent(req.endpoint)
+        let url = req.baseUrl.appendingPathComponent(req.endpoint)
         let mutableRequest = prepareRequest(for: url, req: req)
         
         return Alamofire.request(mutableRequest).responseJSON { (response) in
