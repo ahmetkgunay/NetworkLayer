@@ -13,16 +13,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Network.request(req: UserRequest(userName: "ahmetkgunay")) { (result) in
+        _ = Network.request(req: UserRequest(userName: "ahmetkgunay")) { (result) in
             
             switch result {
             case .success(let userResponse):
                 print(userResponse)
+            case .cancel(let cancelError):
+                print(cancelError!)
+                break
             case .failure(let error):
                 print(error!)
             }
         }
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

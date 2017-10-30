@@ -43,6 +43,6 @@ final class UserRequest: Requestable {
     }
     
     var cachePolicy: NSURLRequest.CachePolicy {
-        return .returnCacheDataElseLoad
+        return .reloadIgnoringLocalAndRemoteCacheData
     }
 }

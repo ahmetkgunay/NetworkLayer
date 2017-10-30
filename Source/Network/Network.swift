@@ -34,6 +34,7 @@ extension Requestable {
 
 enum NetworkResult<T> {
     case success(T)
+    case cancel(Error?)
     case failure(Error?)
 }
 
@@ -52,26 +53,36 @@ class Network {
         case json, path
     }
     
-    static func request<T: Requestable>(req: T, completionHandler: @escaping (NetworkResult<T.ResponseType>) -> Void) {
+    @discardableResult
+    static func request<T: Requestable>(req: T, completionHandler: @escaping (NetworkResult<T.ResponseType>) -> Void) -> DataRequest? {
         
-        guard let baseUrl = BaseURL else { return }
+        guard let baseUrl = BaseURL else { return nil }
         let url = baseUrl.appendingPathComponent(req.endpoint)
         let mutableRequest = prepareRequest(for: url, req: req)
         
-        Alamofire.request(mutableRequest).responseJSON { (response) in
+        return Alamofire.request(mutableRequest).responseJSON { (response) in
             
-            guard let data = response.data else {
-                completionHandler(NetworkResult.failure(response.error))
+            if let err = response.error {
+                
+                if let urlError = err as? URLError, urlError.code == URLError.cancelled {
+                    // cancelled
+                    completionHandler(NetworkResult.cancel(urlError))
+                } else {
+                    // other failures
+                    completionHandler(NetworkResult.failure(err))
+                }
                 return
             }
             
-            let decoder = JSONDecoder()
-            
-            do {
-                let object = try decoder.decode(T.ResponseType.self, from: data)
-                completionHandler(NetworkResult.success(object))
-            } catch let error {
-                completionHandler(NetworkResult.failure(error))
+            if let data = response.data {
+                let decoder = JSONDecoder()
+                
+                do {
+                    let object = try decoder.decode(T.ResponseType.self, from: data)
+                    completionHandler(NetworkResult.success(object))
+                } catch let error {
+                    completionHandler(NetworkResult.failure(error))
+                }
             }
         }
     }
