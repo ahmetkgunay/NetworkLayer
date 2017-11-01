@@ -1,5 +1,3 @@
-# NetworkLayer
-
 <p align="center">
 <a href="https://swift.org">
 <img src="http://img.shields.io/badge/Swift-4.0-brightgreen.svg" alt="Language">
@@ -8,6 +6,7 @@
 </a>
 </p>
 
+# NetworkLayer
 Protocol Oriented Generic Network Layer example with Alamofire and Swift4
 
 
