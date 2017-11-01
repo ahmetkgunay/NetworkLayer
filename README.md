@@ -1,7 +1,7 @@
 <p align="center">
 <a href="https://swift.org">
 <img src="http://img.shields.io/badge/Swift-4.0-brightgreen.svg" alt="Language">
-</a>  <a href="https://github.com/ahmetkgunay/NetworkLayer/blob/master/LICENSE.md">
+</a>  <a href="https://github.com/ahmetkgunay/NetworkLayer/blob/master/LICENSE">
 <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License">
 </a>
 </p>
