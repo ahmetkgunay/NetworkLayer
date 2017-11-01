@@ -104,8 +104,6 @@ extension Network {
                     assertionFailure("Error : while attemping to serialize the data for preparing httpBody \(error)")
                 }
             }
-            
-            return request!
         case .path:
             var query = ""
             

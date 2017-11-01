@@ -53,7 +53,7 @@ final class UserRequest: Requestable {
 
     var cachePolicy: NSURLRequest.CachePolicy {
         return .reloadIgnoringLocalAndRemoteCacheData
-        }
+    }
 }
 
 ```
@@ -81,20 +81,20 @@ public struct UserResponse: Codable {
 #### Request from ViewController
 
 ```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-    // Assign request instance to cancel in future
-    // Just call cancel() to assigned instance
-    _ = Network.request(req: UserRequest(userName: "ahmetkgunay")) { (result) in
+        // Assign request instance to cancel in future
+        // Just call cancel() to assigned instance
+        _ = Network.request(req: UserRequest(userName: "ahmetkgunay")) { (result) in
 
-        switch result {
-            case .success(let userResponse):
-                print(userResponse)
-            case .cancel(let cancelError):
-                print(cancelError!)
-            case .failure(let error):
-                print(error!)
+            switch result {
+                case .success(let userResponse):
+                    print(userResponse)
+                case .cancel(let cancelError):
+                    print(cancelError!)
+                case .failure(let error):
+                    print(error!)
             }
         }
     }
